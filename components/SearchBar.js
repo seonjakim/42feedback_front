@@ -20,9 +20,10 @@ const SearchBar = ({ cadetSelect, cadets, input, inputOnChange }) => {
       <DrowdownUl display={autoCompleteList.length}>
         {autoCompleteList.map((cadet, index) => (
           <DropdownList
-            onClick={() => cadetSelect(cadet.login)}
+            onClick={() => cadetSelect(cadet, inputOnChange)}
             border={index}
             key={index}
+            data-id="userList"
           >
             {cadet.login}
           </DropdownList>
@@ -35,7 +36,7 @@ const SearchBar = ({ cadetSelect, cadets, input, inputOnChange }) => {
 export default SearchBar
 
 const SearchBarContainer = styled.div`
-  width: 300px;
+  /* width: 300px; */
 `
 
 const StyledInput = styled.input`

@@ -7,13 +7,12 @@ const Layout = ({ children }) => {
 export default Layout
 
 const StyledLayout = styled.div`
-  width: 60vw;
+  width: 690px;
   height: 100vh;
   max-height: 100%;
   margin: auto;
-  background-color: #eee;
-  position: relative;
-
+  padding: 2em 1em 0;
+  background-color: ${({ theme }) => theme.color.light};
   @media only screen and (max-width: 870px) {
     width: 100vw;
   }

@@ -6,6 +6,7 @@ export const StyledHeader = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.green.mid};
+  background-color: ${({ theme }) => theme.color.main};
+  border-radius: 4px;
   color: #fff;
 `
