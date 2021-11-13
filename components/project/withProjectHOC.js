@@ -1,6 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import { HOST_URL } from '../../constants'
+import * as ProjectAction from './actions'
 
 const ToastMessage = () => {
   return <div style={{ backgroundColor: 'red' }}>hello</div>
@@ -21,12 +22,6 @@ const withProjectHOC = (Component) => {
       console.log(projectDetails)
     }, [])
 
-    const hasSameId = (cadetList, newCadet) =>
-      cadetList.some((cadet) => cadet.login === newCadet.login)
-    const cadetListWithoutSelectedId = (selectedCadetList, cadetName) =>
-      selectedCadetList.filter((cadet) => cadet.login !== cadetName)
-    const isEmpty = (obj) => Object.values(obj).some((el) => el.length === 0)
-
     const setProjectName = (e) => {
       setProjectDetails({
         ...projectDetails,
@@ -36,7 +31,7 @@ const withProjectHOC = (Component) => {
 
     const updateCadetList = (newCadet, setInput) => {
       const { userList } = projectDetails
-      if (hasSameId(userList, newCadet)) {
+      if (ProjectAction.hasSameId(userList, newCadet)) {
         setInput('')
         return
       }
@@ -50,30 +45,23 @@ const withProjectHOC = (Component) => {
     const cadetListUpdate = (cadetId) => {
       setProjectDetails({
         ...projectDetails,
-        userList: cadetListWithoutSelectedId(projectDetails.userList, cadetId),
+        userList: ProjectAction.cadetListWithoutSelectedId(
+          projectDetails.userList,
+          cadetId
+        ),
       })
     }
-
+    // 이거 없애고 각 컴포넌트에서 작성해도 괜찮을듯
     const submitProject = async () => {
-      if (isEmpty(projectDetails)) {
+      if (ProjectAction.isEmpty(projectDetails)) {
         alert('모든 항목을 작성해주세요.')
         return
       }
-      let res
-      if (isEdit) {
-        res = await fetch(`${HOST_URL}/project/${projectDetails.projectId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(projectDetails),
-        })
-      } else {
-        res = await fetch(`${HOST_URL}/project`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(projectDetails),
-        })
-      }
-      console.log(res)
+      const res = await ProjectAction.projectCreateOrEdit(
+        isEdit,
+        projectDetails,
+        projectDetails.projectId
+      )
       if (res.ok) {
         Router.push('/project')
       }

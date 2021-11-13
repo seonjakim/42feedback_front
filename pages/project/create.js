@@ -1,4 +1,3 @@
-import React from 'react'
 import withProjectHOC from '../../components/project/withProjectHOC'
 import ProjectView from '../../components/project/ProjectView'
 

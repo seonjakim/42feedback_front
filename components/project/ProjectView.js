@@ -1,8 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { StyledInput } from '../styles/Input.styled'
-import { StyledButton } from '../styles/Button.styled'
 import SearchBar from '../SearchBar'
 
 const ProjectView = ({ ...props }) => {
