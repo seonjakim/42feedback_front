@@ -16,4 +16,7 @@ const StyledLayout = styled.div`
   @media only screen and (max-width: 870px) {
     width: 100vw;
   }
+  @media only screen and (max-width: 670px) {
+    font-size: 80%;
+  }
 `

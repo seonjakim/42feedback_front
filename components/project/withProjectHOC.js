@@ -1,7 +1,5 @@
 import React from 'react'
 import Router from 'next/router'
-import { HOST_URL } from '../../constants'
-import * as ProjectAction from './actions'
 
 const ToastMessage = () => {
   return <div style={{ backgroundColor: 'red' }}>hello</div>
@@ -9,7 +7,7 @@ const ToastMessage = () => {
 
 const withProjectHOC = (Component) => {
   const newProjectComponent = ({ ...props }) => {
-    const { project, isEdit } = props
+    const { project, onProjectSubmit, onNoProjectSubmit } = props
     const [projectDetails, setProjectDetails] = React.useState({
       name: '',
       description: '',
@@ -17,21 +15,27 @@ const withProjectHOC = (Component) => {
     })
     const [searchInput, setSearchInput] = React.useState('')
 
+    const hasSameId = (cadetList, newCadet) =>
+      cadetList.some((cadet) => cadet.login === newCadet.login)
+    const cadetListWithoutSelectedId = (selectedCadetList, cadetName) =>
+      selectedCadetList.filter((cadet) => cadet.login !== cadetName)
+    const isEmpty = (obj) => Object.values(obj).some((el) => el.length === 0)
+
     React.useEffect(() => {
       if (project) setProjectDetails(project)
-      console.log(projectDetails)
     }, [])
 
-    const setProjectName = (e) => {
+    const setProjectInfo = (e) => {
+      const { name } = e.target
       setProjectDetails({
         ...projectDetails,
-        name: e.target.value,
+        [name]: e.target.value,
       })
     }
 
     const updateCadetList = (newCadet, setInput) => {
       const { userList } = projectDetails
-      if (ProjectAction.hasSameId(userList, newCadet)) {
+      if (hasSameId(userList, newCadet)) {
         setInput('')
         return
       }
@@ -45,20 +49,16 @@ const withProjectHOC = (Component) => {
     const cadetListUpdate = (cadetId) => {
       setProjectDetails({
         ...projectDetails,
-        userList: ProjectAction.cadetListWithoutSelectedId(
-          projectDetails.userList,
-          cadetId
-        ),
+        userList: cadetListWithoutSelectedId(projectDetails.userList, cadetId),
       })
     }
     // 이거 없애고 각 컴포넌트에서 작성해도 괜찮을듯
-    const submitProject = async () => {
-      if (ProjectAction.isEmpty(projectDetails)) {
+    const projectSubmitClick = async () => {
+      if (isEmpty(projectDetails)) {
         alert('모든 항목을 작성해주세요.')
         return
       }
-      const res = await ProjectAction.projectCreateOrEdit(
-        isEdit,
+      const res = await onProjectSubmit(
         projectDetails,
         projectDetails.projectId
       )
@@ -68,14 +68,9 @@ const withProjectHOC = (Component) => {
     }
 
     const deleteProject = async () => {
-      let res
-      if (isEdit) {
-        res = await fetch(`${HOST_URL}/project/${projectDetails.projectId}`, {
-          method: 'DELETE',
-        })
-      }
+      const res = await onNoProjectSubmit(projectDetails.projectId)
       // if res.ok is false need to do something
-      if (res === undefined || res.ok) {
+      if (res.ok) {
         Router.push(`/project`)
       }
     }
@@ -88,8 +83,8 @@ const withProjectHOC = (Component) => {
         projectDetails={projectDetails}
         updateCadetList={updateCadetList}
         cadetListUpdate={cadetListUpdate}
-        setProjectName={setProjectName}
-        submitProject={submitProject}
+        setProjectInfo={setProjectInfo}
+        projectSubmitClick={projectSubmitClick}
         deleteProject={deleteProject}
       />
     )

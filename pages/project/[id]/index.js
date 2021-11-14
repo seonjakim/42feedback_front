@@ -1,9 +1,32 @@
 import withProjectHOC from '../../../components/project/withProjectHOC'
 import ProjectView from '../../../components/project/ProjectView'
+import { HOST_URL } from '../../../constants'
 const ProjectEdit = withProjectHOC(ProjectView)
 
 const Index = ({ project, cadets }) => {
-  return <ProjectEdit isEdit={true} project={project} cadets={cadets} />
+  const onProjectSubmit = async (details, projectId) => {
+    return await fetch(`${HOST_URL}/project/${projectId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(details),
+    })
+  }
+  const onNoProjectSubmit = async (projectId) => {
+    return await fetch(`${HOST_URL}/project/${projectId}`, {
+      method: 'DELETE',
+    })
+  }
+  return (
+    <ProjectEdit
+      pageTitle="프로젝트 편집하기"
+      leftBtnName="프로젝트 삭제하기"
+      rightBtnName="프로젝트 편집하기"
+      project={project}
+      cadets={cadets}
+      onProjectSubmit={onProjectSubmit}
+      onNoProjectSubmit={onNoProjectSubmit}
+    />
+  )
 }
 
 export default Index
