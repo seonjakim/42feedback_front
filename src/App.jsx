@@ -1,14 +1,18 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import ProjectIndex from './pages/project/Main'
+import Layout from './components/Layout'
+import ProjectMain from './pages/project/Main'
+import CadetMain from './pages/cadet/Main'
 
 function App() {
-  console.log(ProjectIndex)
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<ProjectIndex />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/project" element={<ProjectMain />} />
+          <Route path="/cadet" element={<CadetMain />} />
+        </Routes>
+      </Layout>
     </Router>
   )
 }
