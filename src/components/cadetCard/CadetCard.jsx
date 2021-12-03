@@ -1,17 +1,26 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import Thermometer from './Thermometer'
+import { StyledButton } from '../buttons/StyledButton'
 
 const CadetCard = ({ member }) => {
-  const { login, img } = member
+  console.log(member)
+  const { userId, login, feedback } = member
   return (
     <CardContainer>
-      <Avatar url={img} />
+      <Avatar url={`https://cdn.intra.42.fr/users/${login}.jpg`} />
       <CardContent>
         <h3>{login}</h3>
         <div>level 4</div>
         <Thermometer />
       </CardContent>
-      <div>피드백 완성 표시</div>
+      <div>
+        <Link to={`/cadet/${userId}/feedback`}>
+          <StyledButton disabled={feedback}>
+            {feedback ? 'Complete' : 'Give feedback'}
+          </StyledButton>
+        </Link>
+      </div>
     </CardContainer>
   )
 }

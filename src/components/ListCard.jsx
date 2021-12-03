@@ -2,13 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 
 const ListCard = ({ project, leftBtnClick }) => {
-  const { name, description, userList } = project
+  const { name, description } = project
   return (
     <StyledListCardContainer>
       <h2>{name}</h2>
       <h4>{description}</h4>
-      <div>{userList.length} people</div>
-      <button onClick={leftBtnClick}>&#8942;</button>
+      {/* <div>{userList.length} people</div> */}
+      {leftBtnClick && <button onClick={leftBtnClick}>&#8942;</button>}
     </StyledListCardContainer>
   )
 }

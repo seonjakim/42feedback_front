@@ -33,6 +33,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
   a {
+    color: black;
     text-decoration: none;
   }
   textarea {

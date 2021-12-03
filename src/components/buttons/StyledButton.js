@@ -3,8 +3,9 @@ import styled from 'styled-components'
 export const StyledButton = styled.button`
   border-radius: 4px;
   padding: 0.5em;
-  color: #fff;
-  background-color: ${({ theme }) => theme.color.main};
+  color: ${({ disabled }) => (disabled ? '#888' : '#fff')};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? '#ddd' : theme.color.main};
   width: fit-content;
 `
 export const StyledFullButton = styled.button`
