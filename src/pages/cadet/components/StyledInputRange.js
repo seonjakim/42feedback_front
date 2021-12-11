@@ -1,13 +1,6 @@
 import styled from 'styled-components'
-
-const StarRange = () => {
-  return <StyledStar type="range" max="5" defaultValue="3" />
-}
-
-export default StarRange
-
 // refence: https://dev.to/madsstoumann/star-rating-using-a-single-input-i0l
-const StyledStar = styled.input`
+export const StyledStar = styled.input`
   --dir: right;
   --fill: gold;
   --fillbg: rgba(100, 100, 100, 0.15);

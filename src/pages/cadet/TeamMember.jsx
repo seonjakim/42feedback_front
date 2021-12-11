@@ -1,10 +1,12 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { HOST_URL } from '../../constants'
 import Header from '../../components/Header'
 import CadetCard from '../../components/cadetCard/CadetCard'
 
 const TeamMember = () => {
   const [teamMember, setTeamMember] = React.useState([])
+  const { id } = useParams()
   React.useEffect(() => {
     fetch(`${HOST_URL}/api/v1/project/1/user/1/feedback-list`)
       .then((res) => res.json())
@@ -16,7 +18,10 @@ const TeamMember = () => {
       <div style={{ marginTop: '2em' }}>
         {teamMember.map((member, index) => (
           <div style={{ margin: '4px 8px' }} key={index}>
-            <CadetCard member={member} />
+            <CadetCard
+              member={member}
+              url={`/cadet/${id}/${member.userId}/feedback/${member.login}`}
+            />
           </div>
         ))}
       </div>

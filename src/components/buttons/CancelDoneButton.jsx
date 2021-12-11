@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const CancelDoneButton = ({}) => {
+const CancelDoneButton = ({ cacelClick, doneClick }) => {
   return (
     <StyledCancelDoneButton>
-      <button>Cancel</button>
-      <button>Done</button>
+      <button onClick={cacelClick}>Cancel</button>
+      <button onClick={doneClick}>Done</button>
     </StyledCancelDoneButton>
   )
 }

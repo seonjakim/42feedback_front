@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Thermometer from './Thermometer'
 import { StyledButton } from '../buttons/StyledButton'
 
-const CadetCard = ({ member }) => {
+const CadetCard = ({ member, url }) => {
   console.log(member)
   const { userId, login, feedback } = member
   return (
@@ -15,7 +15,7 @@ const CadetCard = ({ member }) => {
         <Thermometer />
       </CardContent>
       <div>
-        <Link to={`/cadet/${userId}/feedback`}>
+        <Link to={url}>
           <StyledButton disabled={feedback}>
             {feedback ? 'Complete' : 'Give feedback'}
           </StyledButton>

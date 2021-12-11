@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import Link from 'next/link'
-import SearchBar from '../SearchBar'
-import CancelCompleteBtn from '../lib/CancelCompleteBtn'
-import CadetInfoCard from '../lib/CadetInfoCard'
+import { Link } from 'react-router-dom'
+import SearchBar from './SearchBar'
+import CancelDoneButton from '../../../components/buttons/CancelDoneButton'
 
 const ProjectView = ({ ...props }) => {
   const {
@@ -21,7 +20,7 @@ const ProjectView = ({ ...props }) => {
   return (
     <GridContainer>
       <HeaderContainer>
-        <Link href="/project">
+        <Link to="/project">
           <BackwardArrow>&lsaquo;</BackwardArrow>
         </Link>
         {pageTitle}
@@ -61,9 +60,9 @@ const ProjectView = ({ ...props }) => {
           </li>
         ))}
       </CadetListUl>
-      <CancelCompleteBtn
-        clickCancel={deleteProject}
-        clickComplete={projectSubmitClick}
+      <CancelDoneButton
+        cancelClick={deleteProject}
+        doneClick={projectSubmitClick}
       />
     </GridContainer>
   )
