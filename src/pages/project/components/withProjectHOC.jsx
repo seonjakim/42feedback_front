@@ -1,8 +1,13 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { HOST_URL } from '../../../constants'
 
 const withProjectHOC = (Component) => {
   const newProjectComponent = ({ ...props }) => {
-    const { project, onProjectSubmit, onNoProjectSubmit } = props
+    const history = useNavigate()
+    const { id } = useParams()
+    const { onProjectSubmit, onNoProjectSubmit } = props
     const [projectDetails, setProjectDetails] = React.useState({
       name: '',
       description: '',
@@ -17,7 +22,11 @@ const withProjectHOC = (Component) => {
     const isEmpty = (obj) => Object.values(obj).some((el) => el.length === 0)
 
     React.useEffect(() => {
-      if (project) setProjectDetails(project)
+      if (id) {
+        fetch(`${HOST_URL}/project/${id}`)
+          .then((res) => res.json())
+          .then((data) => setProjectDetails(data))
+      }
     }, [])
 
     const setProjectInfo = (e) => {
@@ -58,7 +67,7 @@ const withProjectHOC = (Component) => {
         projectDetails.projectId
       )
       if (res.ok) {
-        Router.push('/project')
+        history('/project')
       }
     }
 
@@ -66,7 +75,7 @@ const withProjectHOC = (Component) => {
       const res = await onNoProjectSubmit(projectDetails.projectId)
       // if res.ok is false need to do something
       if (res.ok) {
-        Router.push(`/project`)
+        history(`/project`)
       }
     }
 

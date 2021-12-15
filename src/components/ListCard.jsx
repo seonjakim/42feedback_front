@@ -1,10 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-const ListCard = ({ project, leftBtnClick }) => {
+const ListCard = ({ url, project, leftBtnClick }) => {
   const { name, description } = project
+  const history = useNavigate()
   return (
-    <StyledListCardContainer>
+    <StyledListCardContainer onClick={() => history(url)}>
       <h2>{name}</h2>
       <h4>{description}</h4>
       {/* <div>{userList.length} people</div> */}

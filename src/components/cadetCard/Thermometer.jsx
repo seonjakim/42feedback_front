@@ -21,7 +21,7 @@ const tempRangeIndex = (temp) => {
 }
 
 const Thermometer = ({ temperature }) => {
-  temperature = 90
+  temperature = 36.5
   const tempIndex = tempRangeIndex(temperature)
   return (
     <StyledThermContainer>

@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom'
 import Header from '../../components/Header'
 import { HOST_URL } from '../../constants'
 import ListCard from '../../components/ListCard'
+import { fetchData } from '../../library/index'
 
 const Main = () => {
   const [projects, setProjects] = React.useState([])
   React.useEffect(() => {
-    fetch(`${HOST_URL}/api/v1/project/user/1`)
-      .then((res) => res.json())
-      .then((data) => setProjects(data))
+    fetchData('/project/user/2', setProjects)
   }, [])
+  console.log(projects)
   return (
     <div>
       <Header title="내 프로젝트 리스트" />
@@ -24,9 +24,7 @@ const Main = () => {
       >
         {projects.map((project, index) => (
           <div style={{ padding: '4px 8px' }} key={index}>
-            <Link to={`/cadet/${project.projectId}`}>
-              <ListCard project={project} />
-            </Link>
+            <ListCard url={`/cadet/${project.projectId}`} project={project} />
           </div>
         ))}
       </div>

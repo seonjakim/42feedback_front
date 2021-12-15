@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import ListCard from '../../components/ListCard'
 import { StyledButton } from '../../components/buttons/StyledButton'
 import Header from '../../components/Header'
 import BottomModal from '../../components/modal/BottomModal'
+import { fetchData } from '../../library/index'
 
 const projectDetails = {
   projectId: 1,
@@ -30,20 +32,29 @@ const Main = () => {
   const [projects, setProjects] = React.useState([])
   const [isOpen, setIsOpen] = React.useState(false)
   React.useEffect(() => {
-    fetch(`http://52.78.177.198:8080/api/v1/projects`)
-      .then((res) => res.json())
-      .then((data) => setProjects(data))
+    fetchData('/projects', setProjects)
   }, [])
+
+  const deleteBtnClick = (e) => {
+    e.stopPropagation()
+    setIsOpen(true)
+  }
 
   return (
     <StyledProjectContainer>
       <Header title="프로젝트" />
       <StyledButtonArea>
-        <StyledButton>새 프로젝트만들기</StyledButton>
+        <Link to="/project/create">
+          <StyledButton>새 프로젝트만들기</StyledButton>
+        </Link>
       </StyledButtonArea>
       {projects.map((project, index) => (
         <div key={index} style={{ margin: '4px 8px' }}>
-          <ListCard leftBtnClick={() => setIsOpen(true)} project={project} />
+          <ListCard
+            url={`/project/${project.projectId}`}
+            leftBtnClick={deleteBtnClick}
+            project={project}
+          />
         </div>
       ))}
       <BottomModal backgroundClick={() => setIsOpen(false)} isOpen={isOpen} />

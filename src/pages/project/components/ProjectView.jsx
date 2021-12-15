@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
+import Header from '../../../components/Header'
 import CancelDoneButton from '../../../components/buttons/CancelDoneButton'
 
 const ProjectView = ({ ...props }) => {
@@ -19,12 +20,7 @@ const ProjectView = ({ ...props }) => {
   const { name, description, userList } = projectDetails
   return (
     <GridContainer>
-      <HeaderContainer>
-        <Link to="/project">
-          <BackwardArrow>&lsaquo;</BackwardArrow>
-        </Link>
-        {pageTitle}
-      </HeaderContainer>
+      <Header title={pageTitle} />
       <div onChange={setProjectInfo}>
         <LabelInputGroup>
           <label htmlFor="name">Project Title</label>
@@ -35,7 +31,7 @@ const ProjectView = ({ ...props }) => {
           <textarea defaultValue={description} name="description" />
         </LabelInputGroup>
       </div>
-      <div>
+      <div style={{ margin: '8px' }}>
         <SearchBar
           inputOnChange={setSearchInput}
           input={searchInput}
@@ -71,7 +67,7 @@ const ProjectView = ({ ...props }) => {
 export default ProjectView
 const GridContainer = styled.div`
   display: grid;
-  grid-template-rows: 7rem 8rem 4rem 1fr 4rem;
+  grid-template-rows: 7rem 8rem 4rem 1fr auto;
   height: 100%;
   @media only screen and (max-width: 670px) {
     grid-template-rows: 7rem 7rem 3rem 1fr 4rem;
@@ -92,6 +88,7 @@ const HeaderContainer = styled.div`
 `
 const CadetListUl = styled.ul`
   overflow: auto;
+  margin: 8px;
   li {
     border: 1px solid ${({ theme }) => theme.border.grey};
     border-radius: 8px;
@@ -143,7 +140,7 @@ const ButtonArea = styled.div`
 `
 const LabelInputGroup = styled.div`
   position: relative;
-  margin-bottom: 8px;
+  margin: 0 8px 8px 8px;
   label {
     position: absolute;
     top: -5px;

@@ -2,13 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 
 const BottomModal = ({ isOpen, editClick, deleteClick, backgroundClick }) => {
+  if (!isOpen) return null
   const modalClose = (e) => {
     if (e.target.nodeName === 'BUTTON') return
     backgroundClick(false)
   }
 
   return (
-    <StyledModalContainer onClick={modalClose} isOpen={isOpen}>
+    <StyledModalContainer onClick={modalClose}>
       <div>
         <button onClick={editClick}>Edit</button>
         <button onClick={deleteClick}>Delete</button>
@@ -20,7 +21,6 @@ const BottomModal = ({ isOpen, editClick, deleteClick, backgroundClick }) => {
 export default BottomModal
 
 const StyledModalContainer = styled.div`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   position: absolute;
   height: 100%;
   width: 100%;

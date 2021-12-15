@@ -8,10 +8,11 @@ const TeamMember = () => {
   const [teamMember, setTeamMember] = React.useState([])
   const { id } = useParams()
   React.useEffect(() => {
-    fetch(`${HOST_URL}/api/v1/project/1/user/1/feedback-list`)
+    fetch(`${HOST_URL}/project/${id}/user/2/feedback-list`)
       .then((res) => res.json())
       .then((data) => setTeamMember(data))
   }, [])
+  console.log(teamMember)
   return (
     <div>
       <Header title="팀원 리스트" />

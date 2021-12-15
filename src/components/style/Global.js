@@ -40,7 +40,7 @@ const GlobalStyles = createGlobalStyle`
     resize: none;
   }
   body {
-    background-color: #eee;
+    background-color: #383838;
   }
 `
 export default GlobalStyles

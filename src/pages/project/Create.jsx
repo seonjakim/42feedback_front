@@ -9,9 +9,9 @@ const ProjectCreate = withProjectHOC(ProjectView)
 const Create = () => {
   const cadets = cadetIds
   const onProjectSubmit = async (details) => {
-    return await fetch(`${HOST_URL}/project`, {
+    return await fetch(`${HOST_URL}/api/v1/project`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json; charset=UTF-8' },
       body: JSON.stringify(details),
     })
   }
