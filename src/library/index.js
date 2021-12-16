@@ -13,3 +13,14 @@ export const fetchData = async (url, callback, options) => {
   const data = await response.json()
   callback(data)
 }
+
+export const fetchPost = async (url, options) => {
+  let fetchOptions = {
+    // method: 'GET',
+    // credentials: 'include',
+  }
+  if (options) {
+    fetchOptions = Object.assign(fetchOptions, options)
+  }
+  return await fetch(`${HOST_URL}${url}`, fetchOptions)
+}

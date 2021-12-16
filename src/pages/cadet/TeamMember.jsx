@@ -3,14 +3,13 @@ import { useParams } from 'react-router-dom'
 import { HOST_URL } from '../../constants'
 import Header from '../../components/Header'
 import CadetCard from '../../components/cadetCard/CadetCard'
+import { fetchData } from '../../library/index'
 
 const TeamMember = () => {
   const [teamMember, setTeamMember] = React.useState([])
   const { id } = useParams()
   React.useEffect(() => {
-    fetch(`${HOST_URL}/project/${id}/user/2/feedback-list`)
-      .then((res) => res.json())
-      .then((data) => setTeamMember(data))
+    fetchData(`/project/${id}/user/2/feedback-list`, setTeamMember)
   }, [])
   console.log(teamMember)
   return (

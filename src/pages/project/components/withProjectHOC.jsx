@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { HOST_URL } from '../../../constants'
+import { fetchData } from '../../../library/index'
 
 const withProjectHOC = (Component) => {
   const newProjectComponent = ({ ...props }) => {
@@ -23,9 +23,7 @@ const withProjectHOC = (Component) => {
 
     React.useEffect(() => {
       if (id) {
-        fetch(`${HOST_URL}/project/${id}`)
-          .then((res) => res.json())
-          .then((data) => setProjectDetails(data))
+        fetchData(`/project/${id}`, setProjectDetails)
       }
     }, [])
 

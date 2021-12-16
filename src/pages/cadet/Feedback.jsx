@@ -5,8 +5,7 @@ import Header from '../../components/Header'
 import CancelDoneButton from '../../components/buttons/CancelDoneButton'
 import MessageModal from '../../components/modal/MessageModal'
 import { StyledStar } from './components/StyledInputRange'
-import { HOST_URL } from '../../constants'
-import { isEmpty } from '../../library/index'
+import { isEmpty, fetchPost } from '../../library/index'
 const Feedback = () => {
   const history = useNavigate()
   const { id, projectId, login } = useParams()
@@ -18,7 +17,7 @@ const Feedback = () => {
   })
   const submitFeedback = async () => {
     if (isEmpty(feedbackDetails)) return
-    const res = await fetch(`${HOST_URL}/project/${projectId}/feedback`, {
+    const res = await fetchPost(`/project/${projectId}/feedback`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
