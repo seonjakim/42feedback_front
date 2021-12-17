@@ -14,6 +14,7 @@ const withProjectHOC = (Component) => {
       userList: [],
     })
     const [searchInput, setSearchInput] = React.useState('')
+    const [isOpen, setIsOpen] = React.useState(false)
 
     const hasSameId = (cadetList, newCadet) =>
       cadetList.some((cadet) => cadet.login === newCadet.login)
@@ -69,17 +70,16 @@ const withProjectHOC = (Component) => {
       }
     }
 
-    const deleteProject = async () => {
-      const res = await onNoProjectSubmit(projectDetails.projectId)
-      // if res.ok is false need to do something
-      if (res.ok) {
-        history(`/project`)
-      }
+    const goToPrevPage = () => {
+      // if there is no content, just return to prev page
+      setIsOpen(true)
     }
 
     return (
       <Component
         {...props}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
         searchInput={searchInput}
         setSearchInput={setSearchInput}
         projectDetails={projectDetails}
@@ -87,7 +87,7 @@ const withProjectHOC = (Component) => {
         cadetListUpdate={cadetListUpdate}
         setProjectInfo={setProjectInfo}
         projectSubmitClick={projectSubmitClick}
-        deleteProject={deleteProject}
+        goToPrevPage={goToPrevPage}
       />
     )
   }

@@ -10,6 +10,7 @@ const Edit = () => {
   const onProjectSubmit = async (details, projectId) => {
     return await fetch(`${HOST_URL}/project/${projectId}`, {
       method: 'PUT',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(details),
     })
@@ -17,6 +18,7 @@ const Edit = () => {
   const onNoProjectSubmit = async (projectId) => {
     return await fetch(`${HOST_URL}/project/${projectId}`, {
       method: 'DELETE',
+      credentials: 'include',
     })
   }
   return (

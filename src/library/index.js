@@ -3,7 +3,6 @@ export const isEmpty = (obj) => Object.values(obj).some((el) => el.length === 0)
 
 export const fetchData = async (url, callback, options) => {
   let fetchOptions = {
-    // method: 'GET',
     credentials: 'include',
   }
   if (options) {
@@ -16,11 +15,11 @@ export const fetchData = async (url, callback, options) => {
 
 export const fetchPost = async (url, options) => {
   let fetchOptions = {
-    // method: 'GET',
     credentials: 'include',
   }
   if (options) {
     fetchOptions = Object.assign(fetchOptions, options)
   }
+  console.log(fetchOptions)
   return await fetch(`${HOST_URL}${url}`, fetchOptions)
 }

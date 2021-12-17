@@ -1,13 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const MessageModal = ({ isOpen, message }) => {
+const MessageModal = ({ isOpen, message, onYesClick, onNoClick }) => {
   return (
     <StyledModalContainer isOpen={isOpen}>
       <div>
         <span>{message}</span>
-        <StyledModalButton>Yes</StyledModalButton>
-        <StyledModalButton low="true">No</StyledModalButton>
+        <StyledModalButton onClick={onYesClick}>Yes</StyledModalButton>
+        <StyledModalButton onClick={onNoClick} low="true">
+          No
+        </StyledModalButton>
       </div>
     </StyledModalContainer>
   )
@@ -37,7 +39,9 @@ const StyledModalContainer = styled.div`
     word-wrap: break-word;
     hyphens: auto;
     overflow-wrap: break-word;
-    margin-bottom: 2rem;
+    margin: 0 auto 2rem;
+    font-weight: 700;
+    font-size: 1.2em;
   }
   button {
     margin: 8px 0 0 0;

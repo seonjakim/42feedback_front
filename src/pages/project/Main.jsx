@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ListCard from '../../components/ListCard'
 import { StyledButton } from '../../components/buttons/StyledButton'
 import Header from '../../components/Header'
 import BottomModal from '../../components/modal/BottomModal'
+import { HOST_URL } from '../../constants'
 import { fetchData } from '../../library/index'
 
 const projectDetails = {
@@ -27,17 +28,51 @@ const projectDetails = {
     },
   ],
 }
+const projectMock = [
+  {
+    name: 'algorithm',
+    description: 'haha',
+    projectId: 2,
+  },
+  {
+    name: 'algorithm',
+    description: 'haha',
+    projectId: 3,
+  },
+]
 
 const Main = () => {
+  const history = useNavigate()
   const [projects, setProjects] = React.useState([])
   const [isOpen, setIsOpen] = React.useState(false)
+  const [selectedProject, setSelectedProject] = React.useState(null)
   React.useEffect(() => {
-    fetchData('/projects', setProjects)
+    //fetchData('/projects', setProjects)
+    setProjects(projectMock)
   }, [])
 
-  const deleteBtnClick = (e) => {
+  const deleteBtnClick = (e, id) => {
     e.stopPropagation()
+    setSelectedProject(id)
     setIsOpen(true)
+  }
+
+  const resetEditProjectStatus = () => {
+    setSelectedProject(null)
+    setIsOpen(false)
+  }
+
+  const projectRemoval = async (projectId) => {
+    const response = await fetch(`${HOST_URL}/project/${projectId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
+    console.log(response)
+    // noti success or error msg base on the response
+    if (response.ok) {
+      fetchData('/projects', setProjects)
+    }
+    resetEditProjectStatus()
   }
 
   return (
@@ -52,12 +87,17 @@ const Main = () => {
         <div key={index} style={{ margin: '4px 8px' }}>
           <ListCard
             url={`/project/${project.projectId}`}
-            leftBtnClick={deleteBtnClick}
+            leftBtnClick={(e) => deleteBtnClick(e, project.projectId)}
             project={project}
           />
         </div>
       ))}
-      <BottomModal backgroundClick={() => setIsOpen(false)} isOpen={isOpen} />
+      <BottomModal
+        editClick={() => history(`/project/${selectedProject}`)}
+        deleteClick={() => projectRemoval(selectedProject)}
+        backgroundClick={resetEditProjectStatus}
+        isOpen={isOpen}
+      />
     </StyledProjectContainer>
   )
 }

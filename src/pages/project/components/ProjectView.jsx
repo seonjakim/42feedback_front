@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SearchBar from './SearchBar'
 import Header from '../../../components/Header'
 import CancelDoneButton from '../../../components/buttons/CancelDoneButton'
+import MessageModal from '../../../components/modal/MessageModal'
 
 const ProjectView = ({ ...props }) => {
   const {
@@ -15,9 +16,12 @@ const ProjectView = ({ ...props }) => {
     cadetListUpdate,
     setProjectInfo,
     projectSubmitClick,
-    deleteProject,
+    goToPrevPage,
+    isOpen,
+    setIsOpen,
   } = props
   const { name, description, userList } = projectDetails
+  const history = useNavigate()
   return (
     <GridContainer>
       <Header title={pageTitle} />
@@ -57,8 +61,14 @@ const ProjectView = ({ ...props }) => {
         ))}
       </CadetListUl>
       <CancelDoneButton
-        cancelClick={deleteProject}
+        cancelClick={goToPrevPage}
         doneClick={projectSubmitClick}
+      />
+      <MessageModal
+        isOpen={isOpen}
+        message="If you leave, your edits won't be saved."
+        onYesClick={() => history('/project')}
+        onNoClick={() => setIsOpen(false)}
       />
     </GridContainer>
   )
