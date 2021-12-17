@@ -47,8 +47,8 @@ const Main = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   const [selectedProject, setSelectedProject] = React.useState(null)
   React.useEffect(() => {
-    //fetchData('/projects', setProjects)
-    setProjects(projectMock)
+    fetchData('/projects', setProjects)
+    //setProjects(projectMock)
   }, [])
 
   const deleteBtnClick = (e, id) => {
