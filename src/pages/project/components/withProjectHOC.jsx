@@ -1,13 +1,12 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { fetchData } from '../../../library/index'
 
 const withProjectHOC = (Component) => {
   const newProjectComponent = ({ ...props }) => {
     const history = useNavigate()
     const { id } = useParams()
-    const { onProjectSubmit, onNoProjectSubmit } = props
+    const { onProjectSubmit } = props
     const [projectDetails, setProjectDetails] = React.useState({
       name: '',
       description: '',
@@ -21,6 +20,7 @@ const withProjectHOC = (Component) => {
     const cadetListWithoutSelectedId = (selectedCadetList, cadetName) =>
       selectedCadetList.filter((cadet) => cadet.login !== cadetName)
     const isEmpty = (obj) => Object.values(obj).some((el) => el.length === 0)
+    const isNotEmpty = (obj) => Object.values(obj).some((el) => el.length !== 0)
 
     React.useEffect(() => {
       if (id) {
@@ -72,7 +72,11 @@ const withProjectHOC = (Component) => {
 
     const goToPrevPage = () => {
       // if there is no content, just return to prev page
-      setIsOpen(true)
+      if (isNotEmpty(projectDetails)) {
+        setIsOpen(true)
+        return
+      }
+      history('/project')
     }
 
     return (
