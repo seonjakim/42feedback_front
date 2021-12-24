@@ -77,24 +77,11 @@ const ProjectView = ({ ...props }) => {
 export default ProjectView
 const GridContainer = styled.div`
   display: grid;
-  grid-template-rows: 7rem 8rem 4rem 1fr auto;
+  grid-template-rows: 7em 8em 4em 1fr auto;
   height: 100%;
   @media only screen and (max-width: 670px) {
-    grid-template-rows: 7rem 7rem 3rem 1fr 4rem;
+    /* grid-template-rows: 7rem 7rem 3rem 1fr auto; */
   }
-`
-const HeaderContainer = styled.div`
-  background-color: ${({ theme }) => theme.color.main};
-  font-size: 1.5em;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 1em;
-  color: #fff;
-  background-position: 0 15%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: url('https://images.velog.io/images/seonja/post/43344fc1-c3d2-4479-af6e-d7a23f72f631/pexels-pixabay-270408.jpg');
 `
 const CadetListUl = styled.ul`
   overflow: auto;
@@ -125,26 +112,6 @@ const CadetListUl = styled.ul`
           border-radius: 50%;
         }
       }
-    }
-  }
-`
-const BackwardArrow = styled.div`
-  padding: 1.5rem;
-  color: ${({ theme }) => theme.font.grey};
-`
-
-const ButtonArea = styled.div`
-  padding: 8px 0 0 0;
-  button {
-    &:first-child {
-      background-color: grey;
-      padding: 1em;
-      width: 40%;
-    }
-    &:last-child {
-      background-color: ${({ theme }) => theme.color.main};
-      padding: 1em;
-      width: 60%;
     }
   }
 `
