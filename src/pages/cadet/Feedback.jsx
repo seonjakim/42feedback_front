@@ -6,11 +6,12 @@ import CancelDoneButton from '../../components/buttons/CancelDoneButton'
 import MessageModal from '../../components/modal/MessageModal'
 import { StyledStar } from './components/StyledInputRange'
 import { isEmpty, fetchPost } from '../../library/index'
+
 const Feedback = () => {
   const history = useNavigate()
-  const { id, projectId, login } = useParams()
+  const { cadetId, id, projectId, login } = useParams()
   const [feedbackDetails, setFeedbackDetails] = React.useState({
-    evalUserId: 2,
+    evalUserId: cadetId,
     appraisedUserId: id,
     message: '',
     star: 3,
