@@ -9,6 +9,7 @@ export const fetchData = async (url, callback, options) => {
     fetchOptions = Object.assign(fetchOptions, options)
   }
   const response = await fetch(`${HOST_URL}${url}`, fetchOptions)
+  console.log(response)
   const data = await response.json()
   callback(data)
 }
