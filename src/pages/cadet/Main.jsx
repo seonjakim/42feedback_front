@@ -7,7 +7,7 @@ import { fetchData } from '../../library/index'
 const Main = () => {
   const [projects, setProjects] = React.useState([])
   React.useEffect(() => {
-    fetchData('/project/user/2', setProjects)
+    fetchData('/project', setProjects)
   }, [])
   console.log(projects)
   return (

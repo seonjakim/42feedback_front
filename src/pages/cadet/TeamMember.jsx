@@ -9,7 +9,7 @@ const TeamMember = () => {
   const [teamMember, setTeamMember] = React.useState([])
   const { id } = useParams()
   React.useEffect(() => {
-    fetchData(`/project/${id}/user/2/feedback-list`, setTeamMember)
+    fetchData(`/project/${id}/user/feedback-list`, setTeamMember)
   }, [])
   console.log(teamMember)
   return (
