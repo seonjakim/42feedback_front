@@ -21,7 +21,7 @@ function App() {
           <Route path="/cadet" element={<CadetMain />} />
           <Route path="/cadet/:id" element={<TeamMember />} />
           <Route
-            path="/cadet/:projectId/:id/feedback/:login"
+            path="/cadet/:cadetId/:projectId/:id/feedback/:login"
             element={<Feedback />}
           />
         </Routes>
