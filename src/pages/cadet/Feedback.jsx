@@ -36,6 +36,16 @@ const Feedback = () => {
       return { ...state, [name]: value }
     })
   }
+
+  const goToPrevPage = () => {
+    // if there is no content, just return to prev page
+    if (feedbackDetails.message.length) {
+      setIsOpen(true)
+      return
+    }
+    history('/project')
+  }
+
   return (
     <StyledFeedContainer>
       <Header title="피드백 남기기" />
@@ -52,10 +62,12 @@ const Feedback = () => {
         style={{ width: '100%', height: '50vh' }}
         name="message"
       ></textarea>
-      <CancelDoneButton doneClick={submitFeedback} />
+      <CancelDoneButton cancelClick={goToPrevPage} doneClick={submitFeedback} />
       <MessageModal
         isOpen={false}
-        message="지금까지 작성한 내용을 삭제하시겠습니까?"
+        message="If you leave, your edits won't be saved."
+        onYesClick={() => history('/project')}
+        onNoClick={() => setIsOpen(false)}
       />
     </StyledFeedContainer>
   )
