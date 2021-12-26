@@ -24,7 +24,7 @@ const TeamMember = () => {
           <div style={{ margin: '4px 8px' }} key={index}>
             <CadetCard
               member={member}
-              url={`/cadet/${userId}/${id}/${member.userId}/feedback/${member.login}`}
+              url={`/cadet/${userId}/${id}/${member.appraisedUserId}/feedback/${member.login}`}
             />
           </div>
         ))}
