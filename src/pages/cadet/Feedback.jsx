@@ -43,7 +43,7 @@ const Feedback = () => {
       setIsOpen(true)
       return
     }
-    history('/project')
+    history(`/cadet/${projectId}`)
   }
 
   return (
@@ -66,7 +66,7 @@ const Feedback = () => {
       <MessageModal
         isOpen={false}
         message="If you leave, your edits won't be saved."
-        onYesClick={() => history('/project')}
+        onYesClick={() => history(`/cadet/${projectId}`)}
         onNoClick={() => setIsOpen(false)}
       />
     </StyledFeedContainer>
