@@ -9,6 +9,7 @@ import { isEmpty, fetchPost } from '../../library/index'
 
 const Feedback = () => {
   const history = useNavigate()
+  const [isOpen, setIsOpen] = React.useState(false)
   const { cadetId, id, projectId, login } = useParams()
   const [feedbackDetails, setFeedbackDetails] = React.useState({
     evalUserId: cadetId,
@@ -64,7 +65,7 @@ const Feedback = () => {
       ></textarea>
       <CancelDoneButton cancelClick={goToPrevPage} doneClick={submitFeedback} />
       <MessageModal
-        isOpen={false}
+        isOpen={isOpen}
         message="If you leave, your edits won't be saved."
         onYesClick={() => history(`/cadet/${projectId}`)}
         onNoClick={() => setIsOpen(false)}
