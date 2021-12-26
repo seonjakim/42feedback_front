@@ -1,6 +1,5 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { HOST_URL } from '../../constants'
 import Header from '../../components/Header'
 import CadetCard from '../../components/cadetCard/CadetCard'
 import { fetchData } from '../../library/index'
